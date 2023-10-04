@@ -110,6 +110,15 @@ meter {
 :where(dialog:modal) {
     all: revert;
 }
+* {
+  box-sizing: border-box;
+}
+body{
+  font-family: 'Source Sans 3', sans-serif;
+}
+a{
+  text-decoration: none;
+}
 `
 
 function App() {
