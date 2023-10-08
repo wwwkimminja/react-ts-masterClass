@@ -129,7 +129,6 @@ function App() {
     <>
     <GlobalStyle/>
     <Container>
-      <H1>hello</H1>
       <Router/>
     </Container>
     </>
