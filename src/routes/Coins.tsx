@@ -85,7 +85,7 @@ const Coins = () => {
               pathname:`/${coin.id}`,
               state:{name:coin.name}
               }}>
-              <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/>
+              <Img src={`https://static.coinpaprika.com/coin/${coin.id}/logo.png`}/>
               {coin.name} &rarr;</Link>
           </Coin>
           ))
