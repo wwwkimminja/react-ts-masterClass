@@ -1,15 +1,13 @@
 import styled, { createGlobalStyle } from "styled-components";
 import Router from "./Router";
+import {ReactQueryDevtools} from "react-query/devtools"
 
 const Container = styled.div`
   background-color:${props => props.theme.bgColor};
 `
-const H1 = styled.h1`
-color:${props => props.theme.textColor};
-`
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400&display=swap');
+
 /***
     The new CSS reset - version 1.9 (last updated 19.6.2023)
     GitHub page: https://github.com/elad2412/the-new-css-reset
@@ -130,6 +128,7 @@ function App() {
     <GlobalStyle/>
     <Container>
       <Router/>
+      <ReactQueryDevtools initialIsOpen={true}/>
     </Container>
     </>
   );
