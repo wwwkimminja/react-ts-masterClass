@@ -5,7 +5,7 @@ import Price from './Price';
 import Chart from './Chart';
 import { fetchCoinInfo, fetchCoinTicker } from '../api';
 import { useQuery } from 'react-query';
-
+import {Helmet} from 'react-helmet'
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
@@ -142,7 +142,14 @@ const Coin = () => {
   const chartMatch = useRouteMatch("/:coinId/chart")
 
   const {isLoading:infoLoading,data:infoData}=useQuery<InfoData>(["info",coinId],()=>fetchCoinInfo(coinId))
-  const {isLoading:tickerLoading,data:tickerData}=useQuery<PriceData>(["ticker",coinId],()=>fetchCoinTicker(coinId))
+  const {isLoading:tickerLoading,data:tickerData}=useQuery<PriceData>(
+    ["ticker",coinId],()=>fetchCoinTicker(coinId),
+  // {
+  //   refetchInterval: (_, query) => {
+  //     return query.state.dataUpdateCount < 5 ? 5000 : false 
+  //   }
+  // }
+)
 
 
 
@@ -150,6 +157,9 @@ const Coin = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
       </Header>
@@ -166,7 +176,7 @@ const Coin = () => {
             </OverviewItem>
             <OverviewItem>
               <span>Open Source:</span>
-              <span>{infoData?.open_source}</span>
+              <span>{tickerData?.quotes.USD.price}</span>
             </OverviewItem>
           </Overview>
           <Description>
