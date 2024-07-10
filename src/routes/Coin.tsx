@@ -6,6 +6,7 @@ import Chart from './Chart';
 import { fetchCoinInfo, fetchCoinTicker } from '../api';
 import { useQuery } from 'react-query';
 import {Helmet} from 'react-helmet'
+import { GoHomeFill } from "react-icons/go";
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
@@ -95,7 +96,7 @@ interface PriceData {
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.3);
   padding: 10px 20px;
   border-radius: 10px;
 `
@@ -125,7 +126,7 @@ const Tab = styled.span<{isActive:boolean}>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.3);
   border-radius: 10px;
   color: ${props =>props.isActive?props.theme.accentColor:props.theme.textColor};
   a{
@@ -133,6 +134,12 @@ const Tab = styled.span<{isActive:boolean}>`
     display: block;
   }
 
+`
+const Home = styled.div`
+position:absolute;
+left: 0;
+padding: 15px;
+font-size: 30px;
 `
 const Coin = () => {
 
@@ -157,6 +164,11 @@ const Coin = () => {
 
   return (
     <Container>
+      <Home >
+        <Link to={"/"}>
+          <GoHomeFill/>
+        </Link>
+      </Home>
       <Helmet>
         <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
       </Helmet>
@@ -165,6 +177,7 @@ const Coin = () => {
       </Header>
       {loading ? <Loader>Loading...</Loader> : (
         <>
+   
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
