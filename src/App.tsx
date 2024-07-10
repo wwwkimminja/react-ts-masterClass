@@ -1,9 +1,13 @@
 import styled, { createGlobalStyle } from "styled-components";
 import Router from "./Router";
 import {ReactQueryDevtools} from "react-query/devtools"
+import { ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from './theme';
+import { useState } from "react";
 
 const Container = styled.div`
   background-color:${props => props.theme.bgColor};
+	position: relative;
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -121,16 +125,29 @@ a{
   text-decoration: none;
 }
 `
+const Toggle = styled.button`
+position: absolute;
+right: 0;
+padding: 15px;
+font-size: 30px;
+`
 
 function App() {
+
+	const [lightMode,setLightMode] = useState(false)
+
+	const toggleMode = ()=>{
+		setLightMode(!lightMode)
+	}
   return (
-    <>
-    <GlobalStyle/>
-    <Container>
-      <Router/>
-      <ReactQueryDevtools initialIsOpen={true}/>
-    </Container>
-    </>
+		<ThemeProvider theme={lightMode?lightTheme:darkTheme}>
+			<GlobalStyle/>
+			<Container>
+				<Toggle onClick={toggleMode}>{lightMode? `🌙`:`🌞`}</Toggle>
+				<Router/>
+				<ReactQueryDevtools initialIsOpen={true}/>
+			</Container>
+		</ThemeProvider>
   );
 }
 

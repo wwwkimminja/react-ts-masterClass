@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { fetchCoins } from '../api'
@@ -20,8 +20,8 @@ justify-content: center;
 align-items: center;
 `
 const Coin = styled.li`
-background-color: white;
-color:${(props) => props.theme.bgColor};
+background-color: #dcdde1;
+color:#2f3640;
 border-radius: 15px;
 margin-bottom: 10px;
 a{
