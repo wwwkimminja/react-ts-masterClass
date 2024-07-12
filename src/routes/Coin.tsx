@@ -188,7 +188,7 @@ const Coin = () => {
             </OverviewItem>
             <OverviewItem>
               <span>Open Source:</span>
-              <span>{tickerData?.quotes.USD.price}</span>
+              <span>{tickerData?.quotes?.USD.price}</span>
             </OverviewItem>
           </Overview>
           <Description>
