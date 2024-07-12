@@ -144,7 +144,7 @@ function App() {
 			<GlobalStyle/>
 			<Container>
 				<Toggle onClick={toggleMode}>{lightMode? `🌙`:`🌞`}</Toggle>
-				<Router/>
+				<Router />
 				<ReactQueryDevtools initialIsOpen={true}/>
 			</Container>
 		</ThemeProvider>

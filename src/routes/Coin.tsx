@@ -126,9 +126,9 @@ const Tab = styled.span<{isActive:boolean}>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0,0,0,0.3);
+  background-color: ${props =>props.isActive?props.theme.accentColor:"rgba(0,0,0,0.3)"};;
   border-radius: 10px;
-  color: ${props =>props.isActive?props.theme.accentColor:props.theme.textColor};
+  color: ${props =>props.theme.textColor};
   a{
     padding: 7px 0px;
     display: block;
@@ -157,7 +157,6 @@ const Coin = () => {
   //   }
   // }
 )
-
 
 
   const loading = infoLoading || tickerLoading
@@ -213,13 +212,13 @@ const Coin = () => {
             </Tab>
             <Tab isActive={priceMatch !== null}>
               <Link to={`/${coinId}/price`}>
-                Price
+                Today Price
               </Link>
             </Tab>
           </Tabs>
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price />
+              <Price coinId={coinId}/>
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId}/>

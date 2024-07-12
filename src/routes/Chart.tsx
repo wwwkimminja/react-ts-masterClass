@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-query';
 import { fetchCoinHistory } from '../api';
 import ApexCharts from 'react-apexcharts'
+import dayjs from 'dayjs';
 
 interface ChartProps {
   coinId: string;
@@ -15,8 +16,6 @@ interface IHistorical {
   close: string;
   volume: string;
   market_cap: number;
-
-
 }
 
 function Chart({ coinId }: ChartProps) {
@@ -29,13 +28,13 @@ function Chart({ coinId }: ChartProps) {
   return (
     <div>{isLoading ? "Loading chart..." :
       <ApexCharts
-        type="line"
+        type="candlestick" 
         series={[
           {
-            name: "price",
+            name: 'candle',
             data: data?.map(v => ({
-              x:new Date(v.time_close*1000),
-              y:Number(v.close)
+              x:new Date(v.time_open),
+              y:[Number(v.open),Number(v.high),Number(v.low),Number(v.close)]
             })
             )||[]
           }
@@ -48,6 +47,7 @@ function Chart({ coinId }: ChartProps) {
             chart: {
               height: 500,
               width: 500,
+              type:'candlestick',
               toolbar:{
                 show:false
               },
@@ -55,6 +55,9 @@ function Chart({ coinId }: ChartProps) {
             },
             grid:{
               show:false
+            },
+            stroke:{
+              width:1
             },
             yaxis:{
               show:false
@@ -67,18 +70,22 @@ function Chart({ coinId }: ChartProps) {
               axisBorder:{
                 show:false
               },
-              type:"datetime",
+              type: 'datetime'
 
             },
-            fill:{
-              type:"gradient",
-              gradient:{gradientToColors:["#0be881"],stops:[0,100]}
-            },
-            colors:["#0fbcf9"],
+            // fill:{
+            //   type:"gradient",
+            //   gradient:{gradientToColors:["#0be881"],stops:[0,100]}
+            // },
+            // colors:["#0fbcf9"],
             tooltip:{
               y:{
                 formatter:(value)=>`${value.toFixed(2)}`
+                
               },
+              x:{
+                formatter:(value)=>dayjs(value).format('MMM DD HH:mm')
+              }
             }
           }
         } />
