@@ -1,9 +1,11 @@
 import styled, { createGlobalStyle } from "styled-components";
 import Router from "./Router";
-import {ReactQueryDevtools} from "react-query/devtools"
+import { ReactQueryDevtools } from "react-query/devtools"
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './theme';
 import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atoms";
 
 const Container = styled.div`
   background-color:${props => props.theme.bgColor};
@@ -118,7 +120,7 @@ meter {
 body{
   font-family: 'Source Sans 3', sans-serif;
   background-color:${(props) => props.theme.bgColor};
-  color:${(props)=>props.theme.textColor}
+  color:${(props) => props.theme.textColor}
   
 }
 a{
@@ -134,21 +136,20 @@ font-size: 30px;
 
 function App() {
 
-	const [lightMode,setLightMode] = useState(false)
+    const [isDark, setIsDark] = useRecoilState(isDarkAtom)
 
-	const toggleMode = ()=>{
-		setLightMode(!lightMode)
-	}
-  return (
-		<ThemeProvider theme={lightMode?lightTheme:darkTheme}>
-			<GlobalStyle/>
-			<Container>
-				<Toggle onClick={toggleMode}>{lightMode? `🌙`:`🌞`}</Toggle>
-				<Router />
-				<ReactQueryDevtools initialIsOpen={true}/>
-			</Container>
-		</ThemeProvider>
-  );
+    const toggleDarkAtom = () => setIsDark(!isDark)
+
+    return (
+        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+            <GlobalStyle />
+            <Container>
+                <Toggle onClick={toggleDarkAtom}>{isDark ? `🌞` : `🌙`}</Toggle>
+                <Router />
+                <ReactQueryDevtools initialIsOpen={true} />
+            </Container>
+        </ThemeProvider>
+    );
 }
 
 export default App;
