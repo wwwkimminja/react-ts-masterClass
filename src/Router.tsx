@@ -3,6 +3,8 @@ import { BrowserRouter , Route, Switch } from 'react-router-dom'
 import Coins from './routes/Coins'
 import Coin from './routes/Coin'
 
+
+
 const Router = () => {
   return (
    <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -11,7 +13,7 @@ const Router = () => {
       <Coin/>
     </Route>
     <Route path="/">
-      <Coins/>
+      <Coins />
     </Route>
    </Switch>
    </BrowserRouter>

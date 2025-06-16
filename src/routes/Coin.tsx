@@ -7,6 +7,12 @@ import { fetchCoinInfo, fetchCoinTicker } from '../api';
 import { useQuery } from 'react-query';
 import {Helmet} from 'react-helmet'
 import { GoHomeFill } from "react-icons/go";
+import { useRecoilState } from 'recoil';
+import { isDarkAtom } from '../atoms';
+import { HeaderContainer, ToggleButton } from '../styled/index';
+
+
+
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
@@ -23,12 +29,7 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const Header = styled.header`
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+
 
 interface RouteParams {
   coinId:string;
@@ -137,12 +138,17 @@ const Tab = styled.span<{isActive:boolean}>`
 `
 const Home = styled.div`
 position:absolute;
+top:10px;
 left: 0;
 padding: 15px;
 font-size: 30px;
 `
-const Coin = () => {
 
+
+
+const Coin = () => {
+  
+  const [isDark,setIsDark] = useRecoilState(isDarkAtom)
   const {coinId} = useParams<RouteParams>();
   const {state} = useLocation<RouteState>();
   const priceMatch = useRouteMatch("/:coinId/price")
@@ -163,17 +169,20 @@ const Coin = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
+      </Helmet>
+  
       <Home >
         <Link to={"/"}>
           <GoHomeFill/>
         </Link>
       </Home>
-      <Helmet>
-        <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
-      </Helmet>
-      <Header>
+      <HeaderContainer>
         <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
-      </Header>
+        <ToggleButton onClick={()=>setIsDark(!isDark)}>{isDark ? `🌞` : `🌙`}</ToggleButton >
+      </HeaderContainer>
+     
       {loading ? <Loader>Loading...</Loader> : (
         <>
    

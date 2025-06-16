@@ -3,8 +3,7 @@ import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools"
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './theme';
-import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "./atoms";
 
 const Container = styled.div`
@@ -127,24 +126,18 @@ a{
   text-decoration: none;
 }
 `
-const Toggle = styled.button`
-position: absolute;
-right: 0;
-padding: 15px;
-font-size: 30px;
-`
+
 
 function App() {
 
-    const [isDark, setIsDark] = useRecoilState(isDarkAtom)
+    const isDark = useRecoilValue(isDarkAtom)
 
-    const toggleDarkAtom = () => setIsDark(!isDark)
 
     return (
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
             <GlobalStyle />
             <Container>
-                <Toggle onClick={toggleDarkAtom}>{isDark ? `🌞` : `🌙`}</Toggle>
+                
                 <Router />
                 <ReactQueryDevtools initialIsOpen={true} />
             </Container>

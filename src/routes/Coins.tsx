@@ -4,6 +4,10 @@ import styled from 'styled-components'
 import { fetchCoins } from '../api'
 import { useQuery } from 'react-query'
 import { Helmet } from 'react-helmet'
+import { useRecoilState } from 'recoil'
+import { isDarkAtom } from '../atoms'
+import {HeaderContainer,ToggleButton} from '../styled/index'
+
 const Container = styled.div`
 padding: 0px 20px;
 max-width: 480px;
@@ -13,12 +17,7 @@ margin:0 auto;
 const CoinList = styled.ul`
   
 `
-const Header = styled.header`
-height: 10vh;
-display: flex;
-justify-content: center;
-align-items: center;
-`
+
 const Coin = styled.li`
 background-color: #dcdde1;
 color:#2f3640;
@@ -62,18 +61,22 @@ interface ICoin {
   type: string
 }
 
+
+
 const Coins = () => {
 
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins)
-
+  
+  const [isDark,setIsDark] = useRecoilState(isDarkAtom)
   return (
     <Container>
       <Helmet>
         <title>Coin</title>
       </Helmet>
-      <Header>
+      <HeaderContainer>
         <Title>Coin</Title>
-      </Header>
+        <ToggleButton onClick={()=>setIsDark(!isDark)}>{isDark ? `🌞` : `🌙`}</ToggleButton>
+      </HeaderContainer>
       {isLoading ? <Loader>Loading...</Loader> : <CoinList>
         {data?.slice(0, 100).map((coin) => (
           <Coin key={coin.id}>
