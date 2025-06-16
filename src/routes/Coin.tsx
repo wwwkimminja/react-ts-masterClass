@@ -214,7 +214,7 @@ const Coin = () => {
             </OverviewItem>
           </Overview>
           <Tabs>
-            <Tab isActive={chartMatch !== null}>
+            <Tab isActive={chartMatch !== null || (!chartMatch && !priceMatch)}>
               <Link to={`/${coinId}/chart`}>
                 Chart
               </Link>
@@ -230,6 +230,9 @@ const Coin = () => {
               <Price coinId={coinId}/>
             </Route>
             <Route path={`/:coinId/chart`}>
+              <Chart coinId={coinId}/>
+            </Route>
+            <Route path={`/:coinId`}>
               <Chart coinId={coinId}/>
             </Route>
           </Switch>
