@@ -2,7 +2,6 @@
 
 A real-time cryptocurrency tracker built with React and TypeScript. Track prices, view charts, and get detailed information about your favorite cryptocurrencies.
 
-![Coin Tracker Screenshot](https://i.imgur.com/your-screenshot-url.png)
 
 ## ✨ Features
 
